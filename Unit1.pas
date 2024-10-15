@@ -48,6 +48,7 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   Application.OnHint := LongTextHint;
   ComboBox1.Items := Screen.Fonts;
+  ShowMessageFmt('%s сообщение %s',['Это','отформатированное!']);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);

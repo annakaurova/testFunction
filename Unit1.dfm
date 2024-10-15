@@ -39,7 +39,7 @@ object Form1: TForm1
     Height = 29
     Caption = 'ToolBar1'
     TabOrder = 1
-    ExplicitWidth = 624
+    ExplicitWidth = 626
   end
   object Edit1: TEdit
     Left = 8
@@ -56,8 +56,8 @@ object Form1: TForm1
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitTop = 422
-    ExplicitWidth = 624
+    ExplicitTop = 415
+    ExplicitWidth = 626
   end
   object BtnClose: TButton
     Left = 545
