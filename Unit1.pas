@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, Vcl.ToolWin,
-  Vcl.ComCtrls;
+  Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls,
+  Vcl.ActnMan, Vcl.StdActns;
 
 type
   TForm1 = class(TForm)
@@ -22,10 +23,19 @@ type
     StatusBar1: TStatusBar;
     BtnClose: TButton;
     ComboBox1: TComboBox;
+    ActionList1: TActionList;
+    OpenFile: TAction;
+    WindowClose1: TWindowClose;
+    ActionManager1: TActionManager;
+    OpenDialog1: TOpenDialog;
+    N6: TMenuItem;
+    Button2: TButton;
+    Edit2: TMenuItem;
     procedure N2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
+    procedure OpenFileExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,6 +59,7 @@ begin
   Application.OnHint := LongTextHint;
   ComboBox1.Items := Screen.Fonts;
   ShowMessageFmt('%s сообщение %s',['Это','отформатированное!']);
+  ActionList1.ActionCount
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -73,6 +84,14 @@ end;
 procedure TForm1.N2Click(Sender: TObject);
 begin
 Form1.Close;
+end;
+
+procedure TForm1.OpenFileExecute(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+  begin
+     //...
+  end;
 end;
 
 end.

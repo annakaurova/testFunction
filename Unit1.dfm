@@ -76,15 +76,29 @@ object Form1: TForm1
     TabOrder = 5
     Text = 'ComboBox1'
   end
+  object Button2: TButton
+    Left = 8
+    Top = 296
+    Width = 99
+    Height = 25
+    Action = OpenFile
+    TabOrder = 6
+  end
   object MainMenu1: TMainMenu
     Left = 568
     Top = 56
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
+      object N6: TMenuItem
+        Action = OpenFile
+      end
       object N2: TMenuItem
         Caption = #1042#1099#1093#1086#1076
         OnClick = N2Click
       end
+    end
+    object Edit2: TMenuItem
+      Caption = 'Edit'
     end
     object N3: TMenuItem
       Caption = #1071#1079#1099#1082
@@ -100,5 +114,29 @@ object Form1: TForm1
         RadioItem = True
       end
     end
+  end
+  object ActionList1: TActionList
+    Left = 16
+    Top = 336
+    object OpenFile: TAction
+      Caption = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083
+      Hint = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083
+      OnExecute = OpenFileExecute
+    end
+    object WindowClose1: TWindowClose
+      Category = 'Window'
+      Caption = 'C&lose'
+      Enabled = False
+      Hint = 'Close'
+    end
+  end
+  object ActionManager1: TActionManager
+    Left = 104
+    Top = 336
+    StyleName = 'Platform Default'
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 544
+    Top = 232
   end
 end
