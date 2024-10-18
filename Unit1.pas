@@ -20,22 +20,22 @@ type
     N3: TMenuItem;
     N4: TMenuItem;
     N5: TMenuItem;
+    N6: TMenuItem;
     StatusBar1: TStatusBar;
     BtnClose: TButton;
     ComboBox1: TComboBox;
     ActionList1: TActionList;
     OpenFile: TAction;
-    WindowClose1: TWindowClose;
-    ActionManager1: TActionManager;
+    WindowClose: TWindowClose;
     OpenDialog1: TOpenDialog;
-    N6: TMenuItem;
     Button2: TButton;
     Edit2: TMenuItem;
-    procedure N2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure OpenFileExecute(Sender: TObject);
+    procedure WindowCloseExecute(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -58,8 +58,8 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   Application.OnHint := LongTextHint;
   ComboBox1.Items := Screen.Fonts;
-  ShowMessageFmt('%s сообщение %s',['Это','отформатированное!']);
-  ActionList1.ActionCount
+//  ShowMessageFmt('%s сообщение %s',['Это','отформатированное!']);
+//  ActionList1.ActionCount
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -81,17 +81,17 @@ begin
   end;
 end;
 
-procedure TForm1.N2Click(Sender: TObject);
-begin
-Form1.Close;
-end;
-
 procedure TForm1.OpenFileExecute(Sender: TObject);
 begin
   if OpenDialog1.Execute then
   begin
      //...
   end;
+end;
+
+procedure TForm1.WindowCloseExecute(Sender: TObject);
+begin
+Form1.Close;
 end;
 
 end.

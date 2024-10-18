@@ -28,6 +28,7 @@ object Form1: TForm1
     Top = 91
     Width = 75
     Height = 25
+    Hint = #1050#1086#1084#1087#1086#1085#1077#1085#1090#1099'|'#1054#1090#1086#1073#1088#1072#1078#1077#1085#1080#1077' '#1082#1086#1083#1080#1095#1077#1089#1090#1074#1072' '#1076#1086#1095#1077#1088#1085#1080#1093' '#1082#1086#1084#1087#1086#1085#1077#1085#1090#1086#1074
     Caption = 'Button1'
     TabOrder = 0
     OnClick = Button1Click
@@ -39,7 +40,6 @@ object Form1: TForm1
     Height = 29
     Caption = 'ToolBar1'
     TabOrder = 1
-    ExplicitWidth = 626
   end
   object Edit1: TEdit
     Left = 8
@@ -56,23 +56,23 @@ object Form1: TForm1
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitTop = 415
-    ExplicitWidth = 626
   end
   object BtnClose: TButton
     Left = 545
     Top = 392
     Width = 75
     Height = 25
-    Hint = #1042#1099#1093#1086#1076'|'#1047#1072#1074#1077#1088#1096#1077#1085#1080#1077' '#1088#1072#1073#1086#1090#1099' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+    Hint = 'Close'
     Caption = #1047#1072#1082#1088#1099#1090#1100
     TabOrder = 4
+    OnClick = WindowCloseExecute
   end
   object ComboBox1: TComboBox
     Left = 8
     Top = 160
     Width = 353
     Height = 23
+    Hint = #1064#1088#1080#1092#1090#1099' '#1089#1080#1089#1090#1077#1084#1099'|'#1057#1087#1080#1089#1086#1082' '#1074#1089#1077#1093' '#1089#1080#1089#1090#1077#1084#1085#1099#1093' '#1096#1088#1080#1092#1090#1086#1074
     TabOrder = 5
     Text = 'ComboBox1'
   end
@@ -93,8 +93,7 @@ object Form1: TForm1
         Action = OpenFile
       end
       object N2: TMenuItem
-        Caption = #1042#1099#1093#1086#1076
-        OnClick = N2Click
+        Action = WindowClose
       end
     end
     object Edit2: TMenuItem
@@ -116,27 +115,24 @@ object Form1: TForm1
     end
   end
   object ActionList1: TActionList
-    Left = 16
-    Top = 336
+    Left = 568
+    Top = 160
     object OpenFile: TAction
+      Category = 'Window'
       Caption = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083
       Hint = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083
       OnExecute = OpenFileExecute
     end
-    object WindowClose1: TWindowClose
+    object WindowClose: TWindowClose
       Category = 'Window'
-      Caption = 'C&lose'
-      Enabled = False
+      Caption = #1047#1072#1082#1088#1099#1090#1100
       Hint = 'Close'
+      ShortCut = 16472
+      OnExecute = WindowCloseExecute
     end
   end
-  object ActionManager1: TActionManager
-    Left = 104
-    Top = 336
-    StyleName = 'Platform Default'
-  end
   object OpenDialog1: TOpenDialog
-    Left = 544
-    Top = 232
+    Left = 568
+    Top = 104
   end
 end

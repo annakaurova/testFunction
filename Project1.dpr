@@ -9,7 +9,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.HelpFile := 'C:\Users\Dmitriy\Desktop\моё\GGI\bootstrap\index.html';
+  Application.HelpFile := '';
   Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.
