@@ -40,6 +40,7 @@ object Form1: TForm1
     Height = 29
     Caption = 'ToolBar1'
     TabOrder = 1
+    ExplicitWidth = 624
   end
   object Edit1: TEdit
     Left = 8
@@ -56,6 +57,8 @@ object Form1: TForm1
     Height = 19
     Panels = <>
     SimplePanel = True
+    ExplicitTop = 422
+    ExplicitWidth = 624
   end
   object BtnClose: TButton
     Left = 545
@@ -106,11 +109,13 @@ object Form1: TForm1
         Checked = True
         GroupIndex = 10
         RadioItem = True
+        OnClick = N4Click
       end
       object N5: TMenuItem
         Caption = #1040#1085#1075#1083#1080#1081#1089#1082#1080#1081
         GroupIndex = 10
         RadioItem = True
+        OnClick = N5Click
       end
     end
   end
