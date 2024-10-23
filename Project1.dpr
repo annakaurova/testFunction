@@ -2,7 +2,7 @@
 
 uses
   Vcl.Forms,
-  Unit1 in 'Unit1.pas' {Form1};
+  Unit1 in 'Unit1.pas' {mainForm};
 
 {$R *.res}
 
@@ -10,6 +10,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.HelpFile := '';
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TmainForm, mainForm);
   Application.Run;
 end.

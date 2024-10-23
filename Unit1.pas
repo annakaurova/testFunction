@@ -9,7 +9,7 @@ uses
   Vcl.ActnMan, Vcl.StdActns, IniFiles;
 
 type
-  TForm1 = class(TForm)
+  TmainForm = class(TForm)
     Button1: TButton;
     ToolBar1: TToolBar;
     Label1: TLabel;
@@ -28,7 +28,7 @@ type
     OpenFile: TAction;
     WindowClose: TWindowClose;
     OpenDialog1: TOpenDialog;
-    Button2: TButton;
+    BtnOpenFiles: TButton;
     Edit2: TMenuItem;
     procedure Button1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -48,30 +48,30 @@ type
   end;
 
 var
-  Form1: TForm1;
+  mainForm: TmainForm;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.LongTextHint(Sender: TObject);
+procedure TmainForm.LongTextHint(Sender: TObject);
 begin
   StatusBar1.SimpleText := GetLongHint(Application.Hint);
 end;
 
-procedure TForm1.N4Click(Sender: TObject);
+procedure TmainForm.N4Click(Sender: TObject);
 begin
-Form1.ChangeLang('RUSSIAN');
+mainForm.ChangeLang('RUSSIAN');
 N4.Checked := true;
 end;
 
-procedure TForm1.N5Click(Sender: TObject);
+procedure TmainForm.N5Click(Sender: TObject);
 begin
-Form1.ChangeLang('ENGLISH');
+mainForm.ChangeLang('ENGLISH');
 N5.Checked := true;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TmainForm.FormCreate(Sender: TObject);
 begin
   Application.OnHint := LongTextHint;
   ComboBox1.Items := Screen.Fonts;
@@ -79,26 +79,26 @@ begin
 //  ActionList1.ActionCount
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TmainForm.Button1Click(Sender: TObject);
 begin
-label1.Caption := IntToStr(form1.ComponentCount);
+label1.Caption := IntToStr(mainForm.ComponentCount);
 end;
 
 
-procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word;
+procedure TmainForm.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
 { выставить KeyPreview = true}
   if ssCtrl in Shift then {если нажата клавиша Ctrl}
   case Key of
-    VK_UP : Form1.Top:=Form1.Top-1;
-    VK_DOWN : Form1.Top:=Form1.Top+1;
-    VK_LEFT : Form1.Left:=Form1.Left-1;
-    VK_RIGHT : Form1.Left:=Form1.Left+1;
+    VK_UP : mainForm.Top:=mainForm.Top-1;
+    VK_DOWN : mainForm.Top:=mainForm.Top+1;
+    VK_LEFT : mainForm.Left:=mainForm.Left-1;
+    VK_RIGHT : mainForm.Left:=mainForm.Left+1;
   end;
 end;
 
-procedure TForm1.OpenFileExecute(Sender: TObject);
+procedure TmainForm.OpenFileExecute(Sender: TObject);
 begin
   if OpenDialog1.Execute then
   begin
@@ -106,11 +106,11 @@ begin
   end;
 end;
 
-procedure TForm1.ChangeLang(LangSection: string);
+procedure TmainForm.ChangeLang(LangSection: string);
 var
   // временная числовая переменная для выборки всех компонентов
   i: Integer;
-  LangIniFile: TIniFile;
+  LangIniFile: TMemIniFile;
   // строковая переменная для получения каталога, где находится запущенный EXE файл
   ProgramPath: string;
 begin
@@ -124,7 +124,7 @@ begin
       ProgramPath := ProgramPath + '\';
     // подготавливаем INI файл. Он должен иметь название lang.ini
     // и должен находиться в каталоге программы
-    LangIniFile:=TIniFile.Create(ProgramPath+'lang\lang.ini');
+    LangIniFile:= TMemIniFile.Create(ProgramPath+'lang\lang.ini', TEncoding.UTF8);
     // читаем заголовок окна
     Caption:=LangIniFile.ReadString(LangSection,name,Caption);
     // перебираем все компоненты в этом окне
@@ -156,13 +156,26 @@ begin
     // ...
     // ...
     end;
-    LangIniFile.Free; // освобождаем ресурс
+
+    // если в приложении есть компоненты форм (не консольное приложение)
+    if Application.ComponentCount <> 0 then
+      // перебираем все компоненты
+      for i := 1 to Application.ComponentCount do
+        // если выбранный компонент является подклассом окна, то
+        if Application.Components[i-1].ClassParent = TForm then
+        begin
+          // обработка переключения языка для этого окна
+          (Application.Components[i-1] as TForm).Caption := LangIniFile.ReadString(LangSection,
+        Application.Components[i-1].name, (Application.Components[i-1] as TForm).Caption);
+        end;
+
+    LangIniFile.Free;
   end;
 end;
 
-procedure TForm1.WindowCloseExecute(Sender: TObject);
+procedure TmainForm.WindowCloseExecute(Sender: TObject);
 begin
-Form1.Close;
+self.Close;
 end;
 
 end.
