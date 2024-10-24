@@ -16,12 +16,19 @@ object mainForm: TmainForm
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   TextHeight = 15
-  object Label1: TLabel
+  object LbAmountComponents: TLabel
     Left = 8
     Top = 35
-    Width = 34
+    Width = 142
     Height = 15
-    Caption = 'Label1'
+    Caption = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086' '#1082#1086#1084#1087#1086#1085#1077#1085#1090#1086#1074
+  end
+  object LbSystemFonts: TLabel
+    Left = 8
+    Top = 373
+    Width = 99
+    Height = 15
+    Caption = #1064#1088#1080#1092#1090#1099' '#1089#1080#1089#1090#1077#1084#1099
   end
   object Button1: TButton
     Left = 8
@@ -40,15 +47,13 @@ object mainForm: TmainForm
     Height = 29
     Caption = 'ToolBar1'
     TabOrder = 1
-    ExplicitWidth = 624
   end
-  object Edit1: TEdit
+  object EditAmountComponents: TEdit
     Left = 8
     Top = 56
     Width = 121
     Height = 23
     TabOrder = 2
-    Text = 'Edit1'
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -57,13 +62,11 @@ object mainForm: TmainForm
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitTop = 422
-    ExplicitWidth = 624
   end
   object BtnClose: TButton
-    Left = 512
+    Left = 496
     Top = 392
-    Width = 108
+    Width = 124
     Height = 25
     Hint = 'Close'
     Caption = #1047#1072#1082#1088#1099#1090#1100
@@ -72,12 +75,11 @@ object mainForm: TmainForm
   end
   object ComboBox1: TComboBox
     Left = 8
-    Top = 160
+    Top = 394
     Width = 353
     Height = 23
     Hint = #1064#1088#1080#1092#1090#1099' '#1089#1080#1089#1090#1077#1084#1099'|'#1057#1087#1080#1089#1086#1082' '#1074#1089#1077#1093' '#1089#1080#1089#1090#1077#1084#1085#1099#1093' '#1096#1088#1080#1092#1090#1086#1074
     TabOrder = 5
-    Text = 'ComboBox1'
   end
   object BtnOpenFiles: TButton
     Left = 8

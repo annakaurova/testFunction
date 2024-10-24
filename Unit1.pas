@@ -12,8 +12,8 @@ type
   TmainForm = class(TForm)
     Button1: TButton;
     ToolBar1: TToolBar;
-    Label1: TLabel;
-    Edit1: TEdit;
+    LbAmountComponents: TLabel;
+    EditAmountComponents: TEdit;
     MainMenu1: TMainMenu;
     N1: TMenuItem;
     N2: TMenuItem;
@@ -30,6 +30,7 @@ type
     OpenDialog1: TOpenDialog;
     BtnOpenFiles: TButton;
     Edit2: TMenuItem;
+    LbSystemFonts: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -75,13 +76,14 @@ procedure TmainForm.FormCreate(Sender: TObject);
 begin
   Application.OnHint := LongTextHint;
   ComboBox1.Items := Screen.Fonts;
+  ComboBox1.ItemIndex := 0;
 //  ShowMessageFmt('%s сообщение %s',['Это','отформатированное!']);
 //  ActionList1.ActionCount
 end;
 
 procedure TmainForm.Button1Click(Sender: TObject);
 begin
-label1.Caption := IntToStr(mainForm.ComponentCount);
+EditAmountComponents.Text := IntToStr(mainForm.ComponentCount);
 end;
 
 
@@ -132,29 +134,28 @@ begin
     begin
       // если выбран из массива компонент Button, то изменяем текст на кнопке
       if Components[i-1].ClassType = TButton then
+        begin
         (Components[i-1] as TButton).Caption := LangIniFile.ReadString(LangSection,
         name+Components[i-1].name, (Components[i-1] as TButton).Caption);
-
-      // Напомню описание функции ReadString:
-      // ====================================
-      // LangIniFile.ReadString( СЕКЦИЯ, ПАРАМЕТР, ЗНАЧЕНИЕ_ПО_УМОЛЧАНИЮ );
-      // 1. LangSection - передаваемый параметр в процедуру.
-      //    В процедуру передается название секции для выбранного языка
-      // 2. Name+Components[i-1].Name - Name - название формы,
-      //    Components[i-1].Name - название компонента
-      // 3. (Components[i-1] as TButton).Caption - в случае неудачного чтения этого
-      //    параметра из ini файла (нет такого параметра), то ничего меняться не будет
-
+        (Components[i-1] as TButton).Hint := LangIniFile.ReadString(LangSection,
+        name+Components[i-1].name+'Hint', (Components[i-1] as TButton).Hint);
+        end;
       // аналогично для других типов:
       if Components[i-1].ClassType = TLabel then
+        begin
         (Components[i-1] as TLabel).Caption := LangIniFile.ReadString(LangSection,
         name+Components[i-1].name, (Components[i-1] as TLabel).Caption);
+        (Components[i-1] as TLabel).Hint := LangIniFile.ReadString(LangSection,
+        name+Components[i-1].name+'Hint', (Components[i-1] as TLabel).Hint);
+        end;
       if Components[i-1].ClassType = TEdit then
+      begin
         (Components[i-1] as TEdit).Text := LangIniFile.ReadString(LangSection,
         name+Components[i-1].name, (Components[i-1] as TEdit).Text);
-    // ...
-    // ...
-    // ...
+        (Components[i-1] as TEdit).Hint := LangIniFile.ReadString(LangSection,
+        name+Components[i-1].name+'Hint', (Components[i-1] as TEdit).Hint);
+      end;
+
     end;
 
     // если в приложении есть компоненты форм (не консольное приложение)
