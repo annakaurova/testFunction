@@ -1,4 +1,4 @@
-﻿unit Unit1;
+﻿unit mainUnit;
 
 interface
 
@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, Vcl.ToolWin,
   Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls,
-  Vcl.ActnMan, Vcl.StdActns, IniFiles;
+  Vcl.ActnMan, Vcl.StdActns, IniFiles, ThreadsUnit;
 
 type
   TmainForm = class(TForm)
@@ -31,6 +31,8 @@ type
     BtnOpenFiles: TButton;
     Edit2: TMenuItem;
     LbSystemFonts: TLabel;
+    N7: TMenuItem;
+    ProgressBar1: TProgressBar;
     procedure Button1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -38,6 +40,7 @@ type
     procedure WindowCloseExecute(Sender: TObject);
     procedure N4Click(Sender: TObject);
     procedure N5Click(Sender: TObject);
+    procedure N7Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -70,6 +73,24 @@ procedure TmainForm.N5Click(Sender: TObject);
 begin
 mainForm.ChangeLang('ENGLISH');
 N5.Checked := true;
+end;
+
+procedure TmainForm.N7Click(Sender: TObject);
+var
+x:integer;
+begin
+// Запуск окна тестирования потоков
+ThreadsForm.Show;
+x:=0;
+repeat
+   self.ProgressBar1.Position := x;
+   Inc(x);
+   sleep(50);
+   Application.ProcessMessages;
+   if x = 100 then
+    x := 0;
+until x>100;
+
 end;
 
 procedure TmainForm.FormCreate(Sender: TObject);

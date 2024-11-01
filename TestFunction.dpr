@@ -1,8 +1,9 @@
-﻿program Project1;
+﻿program TestFunction;
 
 uses
   Vcl.Forms,
-  Unit1 in 'Unit1.pas' {mainForm};
+  mainUnit in 'mainUnit.pas' {mainForm},
+  ThreadsUnit in 'ThreadsUnit.pas' {ThreadsForm};
 
 {$R *.res}
 
@@ -11,5 +12,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.HelpFile := '';
   Application.CreateForm(TmainForm, mainForm);
+  Application.CreateForm(TThreadsForm, ThreadsForm);
   Application.Run;
 end.

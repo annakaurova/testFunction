@@ -25,7 +25,7 @@ object mainForm: TmainForm
   end
   object LbSystemFonts: TLabel
     Left = 8
-    Top = 373
+    Top = 341
     Width = 99
     Height = 15
     Caption = #1064#1088#1080#1092#1090#1099' '#1089#1080#1089#1090#1077#1084#1099
@@ -65,7 +65,7 @@ object mainForm: TmainForm
   end
   object BtnClose: TButton
     Left = 496
-    Top = 392
+    Top = 361
     Width = 124
     Height = 25
     Hint = 'Close'
@@ -75,7 +75,7 @@ object mainForm: TmainForm
   end
   object ComboBox1: TComboBox
     Left = 8
-    Top = 394
+    Top = 362
     Width = 353
     Height = 23
     Hint = #1064#1088#1080#1092#1090#1099' '#1089#1080#1089#1090#1077#1084#1099'|'#1057#1087#1080#1089#1086#1082' '#1074#1089#1077#1093' '#1089#1080#1089#1090#1077#1084#1085#1099#1093' '#1096#1088#1080#1092#1090#1086#1074
@@ -88,6 +88,16 @@ object mainForm: TmainForm
     Height = 25
     Action = OpenFile
     TabOrder = 6
+  end
+  object ProgressBar1: TProgressBar
+    Left = 0
+    Top = 398
+    Width = 628
+    Height = 25
+    Align = alBottom
+    TabOrder = 7
+    ExplicitTop = 416
+    ExplicitWidth = 624
   end
   object MainMenu1: TMainMenu
     Left = 568
@@ -103,6 +113,10 @@ object mainForm: TmainForm
     end
     object Edit2: TMenuItem
       Caption = 'Edit'
+      object N7: TMenuItem
+        Caption = #1054#1082#1085#1086' '#1090#1077#1089#1090#1080#1088#1086#1074#1072#1085#1080#1103' '#1087#1086#1090#1086#1082#1086#1074
+        OnClick = N7Click
+      end
     end
     object N3: TMenuItem
       Caption = #1071#1079#1099#1082
