@@ -177,6 +177,14 @@ begin
         name+Components[i-1].name+'Hint', (Components[i-1] as TEdit).Hint);
       end;
 
+      if Components[i-1].ClassType = TMenuItem then
+      begin
+        (Components[i-1] as TMenuItem).Caption := LangIniFile.ReadString(LangSection,
+        name+Components[i-1].name, (Components[i-1] as TMenuItem).Caption);
+        (Components[i-1] as TMenuItem).Hint := LangIniFile.ReadString(LangSection,
+        name+Components[i-1].name+'Hint', (Components[i-1] as TMenuItem).Hint);
+      end;
+
     end;
 
     // если в приложении есть компоненты форм (не консольное приложение)
