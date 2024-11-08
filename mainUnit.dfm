@@ -28,6 +28,7 @@ object mainForm: TmainForm
     Top = 341
     Width = 99
     Height = 15
+    Hint = #1064#1088#1080#1092#1090#1099' '#1089#1080#1089#1090#1077#1084#1099
     Caption = #1064#1088#1080#1092#1090#1099' '#1089#1080#1089#1090#1077#1084#1099
   end
   object Button1: TButton
@@ -68,7 +69,7 @@ object mainForm: TmainForm
     Top = 361
     Width = 124
     Height = 25
-    Hint = 'Close'
+    Hint = #1047#1072#1082#1088#1099#1090#1100
     Caption = #1047#1072#1082#1088#1099#1090#1100
     TabOrder = 4
     OnClick = WindowCloseExecute
@@ -96,8 +97,6 @@ object mainForm: TmainForm
     Height = 25
     Align = alBottom
     TabOrder = 7
-    ExplicitTop = 416
-    ExplicitWidth = 624
   end
   object MainMenu1: TMainMenu
     Left = 568

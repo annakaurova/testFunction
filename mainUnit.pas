@@ -185,6 +185,13 @@ begin
         name+Components[i-1].name+'Hint', (Components[i-1] as TMenuItem).Hint);
       end;
 
+      if Components[i-1].ClassType = TComboBox then
+      begin
+        (Components[i-1] as TComboBox).Text := LangIniFile.ReadString(LangSection,
+        name+Components[i-1].name, (Components[i-1] as TComboBox).Text);
+        (Components[i-1] as TComboBox).Hint := LangIniFile.ReadString(LangSection,
+        name+Components[i-1].name+'Hint', (Components[i-1] as TComboBox).Hint);
+      end;
     end;
 
     // если в приложении есть компоненты форм (не консольное приложение)
