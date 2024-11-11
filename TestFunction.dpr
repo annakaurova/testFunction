@@ -3,7 +3,8 @@
 uses
   Vcl.Forms,
   mainUnit in 'mainUnit.pas' {mainForm},
-  ThreadsUnit in 'ThreadsUnit.pas' {ThreadsForm};
+  ThreadsUnit in 'ThreadsUnit.pas' {ThreadsForm},
+  translate in 'translate.pas';
 
 {$R *.res}
 

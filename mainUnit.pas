@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, Vcl.ToolWin,
   Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls,
-  Vcl.ActnMan, Vcl.StdActns, IniFiles, ThreadsUnit;
+  Vcl.ActnMan, Vcl.StdActns, IniFiles, ThreadsUnit, translate;
 
 type
   TmainForm = class(TForm)
@@ -47,7 +47,7 @@ type
   public
     procedure LongTextHint(Sender: TObject);
 
-    procedure ChangeLang(LangSection: string);
+//     procedure ChangeLang(LangSection: string);
 
   end;
 
@@ -65,13 +65,13 @@ end;
 
 procedure TmainForm.N4Click(Sender: TObject);
 begin
-mainForm.ChangeLang('RUSSIAN');
+translateForm('RUSSIAN',Application,'lang.ini',mainForm);
 N4.Checked := true;
 end;
 
 procedure TmainForm.N5Click(Sender: TObject);
 begin
-mainForm.ChangeLang('ENGLISH');
+translateForm('ENGLISH',Application,'lang.ini',mainForm);
 N5.Checked := true;
 end;
 
@@ -108,8 +108,7 @@ EditAmountComponents.Text := IntToStr(mainForm.ComponentCount);
 end;
 
 
-procedure TmainForm.FormKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TmainForm.FormKeyDown(Sender: TObject; var Key: Word;  Shift: TShiftState);
 begin
 { выставить KeyPreview = true}
   if ssCtrl in Shift then {если нажата клавиша Ctrl}
@@ -129,86 +128,86 @@ begin
   end;
 end;
 
-procedure TmainForm.ChangeLang(LangSection: string);
-var
-  // временная числовая переменная для выборки всех компонентов
-  i: Integer;
-  LangIniFile: TMemIniFile;
-  // строковая переменная для получения каталога, где находится запущенный EXE файл
-  ProgramPath: string;
-begin
-  // если в окне больше одного компонента
-  if ComponentCount <> 0 then
-  begin
-    // получаем каталог, где лежит запущенный EXE файл
-    ProgramPath := ExtractFileDir(Application.ExeName);
-    // гарантированно устанавливаем последний символ '\' в конце строки
-    if ProgramPath[Length(ProgramPath)] <> '\' then
-      ProgramPath := ProgramPath + '\';
-    // подготавливаем INI файл. Он должен иметь название lang.ini
-    // и должен находиться в каталоге программы
-    LangIniFile:= TMemIniFile.Create(ProgramPath+'lang\lang.ini', TEncoding.UTF8);
-    // читаем заголовок окна
-    Caption:=LangIniFile.ReadString(LangSection,name,Caption);
-    // перебираем все компоненты в этом окне
-    for i:=1 to ComponentCount do
-    begin
-      // если выбран из массива компонент Button, то изменяем текст на кнопке
-      if Components[i-1].ClassType = TButton then
-        begin
-        (Components[i-1] as TButton).Caption := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name, (Components[i-1] as TButton).Caption);
-        (Components[i-1] as TButton).Hint := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name+'Hint', (Components[i-1] as TButton).Hint);
-        end;
-      // аналогично для других типов:
-      if Components[i-1].ClassType = TLabel then
-        begin
-        (Components[i-1] as TLabel).Caption := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name, (Components[i-1] as TLabel).Caption);
-        (Components[i-1] as TLabel).Hint := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name+'Hint', (Components[i-1] as TLabel).Hint);
-        end;
-      if Components[i-1].ClassType = TEdit then
-      begin
-        (Components[i-1] as TEdit).Text := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name, (Components[i-1] as TEdit).Text);
-        (Components[i-1] as TEdit).Hint := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name+'Hint', (Components[i-1] as TEdit).Hint);
-      end;
+//procedure TmainForm.ChangeLang(LangSection: string);
+//var
+//  // временная числовая переменная для выборки всех компонентов
+//  i: Integer;
+//  LangIniFile: TMemIniFile;
+//  // строковая переменная для получения каталога, где находится запущенный EXE файл
+//  ProgramPath: string;
+//begin
+//  // если в окне больше одного компонента
+//  if ComponentCount <> 0 then
+//  begin
+//    // получаем каталог, где лежит запущенный EXE файл
+//    ProgramPath := ExtractFileDir(Application.ExeName);
+//    // гарантированно устанавливаем последний символ '\' в конце строки
+//    if ProgramPath[Length(ProgramPath)] <> '\' then
+//      ProgramPath := ProgramPath + '\';
+//    // подготавливаем INI файл. Он должен иметь название lang.ini
+//    // и должен находиться в каталоге программы
+//    LangIniFile:= TMemIniFile.Create(ProgramPath+'lang\lang.ini', TEncoding.UTF8);
+//    // читаем заголовок окна
+//    Caption:=LangIniFile.ReadString(LangSection,name,Caption);
+//    // перебираем все компоненты в этом окне
+//    for i:=1 to ComponentCount do
+//    begin
+//      // если выбран из массива компонент Button, то изменяем текст на кнопке
+//      if Components[i-1].ClassType = TButton then
+//        begin
+//        (Components[i-1] as TButton).Caption := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name, (Components[i-1] as TButton).Caption);
+//        (Components[i-1] as TButton).Hint := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name+'Hint', (Components[i-1] as TButton).Hint);
+//        end;
+//      // аналогично для других типов:
+//      if Components[i-1].ClassType = TLabel then
+//        begin
+//        (Components[i-1] as TLabel).Caption := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name, (Components[i-1] as TLabel).Caption);
+//        (Components[i-1] as TLabel).Hint := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name+'Hint', (Components[i-1] as TLabel).Hint);
+//        end;
+//      if Components[i-1].ClassType = TEdit then
+//      begin
+//        (Components[i-1] as TEdit).Text := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name, (Components[i-1] as TEdit).Text);
+//        (Components[i-1] as TEdit).Hint := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name+'Hint', (Components[i-1] as TEdit).Hint);
+//      end;
+//
+//      if Components[i-1].ClassType = TMenuItem then
+//      begin
+//        (Components[i-1] as TMenuItem).Caption := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name, (Components[i-1] as TMenuItem).Caption);
+//        (Components[i-1] as TMenuItem).Hint := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name+'Hint', (Components[i-1] as TMenuItem).Hint);
+//      end;
+//
+//      if Components[i-1].ClassType = TComboBox then
+//      begin
+//        (Components[i-1] as TComboBox).Text := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name, (Components[i-1] as TComboBox).Text);
+//        (Components[i-1] as TComboBox).Hint := LangIniFile.ReadString(LangSection,
+//        name+Components[i-1].name+'Hint', (Components[i-1] as TComboBox).Hint);
+//      end;
+//    end;
 
-      if Components[i-1].ClassType = TMenuItem then
-      begin
-        (Components[i-1] as TMenuItem).Caption := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name, (Components[i-1] as TMenuItem).Caption);
-        (Components[i-1] as TMenuItem).Hint := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name+'Hint', (Components[i-1] as TMenuItem).Hint);
-      end;
-
-      if Components[i-1].ClassType = TComboBox then
-      begin
-        (Components[i-1] as TComboBox).Text := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name, (Components[i-1] as TComboBox).Text);
-        (Components[i-1] as TComboBox).Hint := LangIniFile.ReadString(LangSection,
-        name+Components[i-1].name+'Hint', (Components[i-1] as TComboBox).Hint);
-      end;
-    end;
-
-    // если в приложении есть компоненты форм (не консольное приложение)
-    if Application.ComponentCount <> 0 then
-      // перебираем все компоненты
-      for i := 1 to Application.ComponentCount do
-        // если выбранный компонент является подклассом окна, то
-        if Application.Components[i-1].ClassParent = TForm then
-        begin
-          // обработка переключения языка для этого окна
-          (Application.Components[i-1] as TForm).Caption := LangIniFile.ReadString(LangSection,
-        Application.Components[i-1].name, (Application.Components[i-1] as TForm).Caption);
-        end;
-
-    LangIniFile.Free;
-  end;
-end;
+//    // если в приложении есть компоненты форм (не консольное приложение)
+//    if Application.ComponentCount <> 0 then
+//      // перебираем все компоненты
+//      for i := 1 to Application.ComponentCount do
+//        // если выбранный компонент является подклассом окна, то
+//        if Application.Components[i-1].ClassParent = TForm then
+//        begin
+//          // обработка переключения языка для этого окна
+//          (Application.Components[i-1] as TForm).Caption := LangIniFile.ReadString(LangSection,
+//        Application.Components[i-1].name, (Application.Components[i-1] as TForm).Caption);
+//        end;
+//
+//    LangIniFile.Free;
+//  end;
+//end;
 
 procedure TmainForm.WindowCloseExecute(Sender: TObject);
 begin
